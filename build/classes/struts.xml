@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 指定Struts 2配置文件的DTD信息 -->
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<!-- Struts2配置文件的根元素 -->
+<struts>
+	<!-- 配置了系列常量 -->
+	<constant name="struts.custom.i18n.resources" value="resource"/>
+	<constant name="struts.i18n.encoding" value="GBK"/>
+	<constant name="struts.devMode" value="true"/>
+	<package name="default" namespace="/" extends="struts-default">
+		
+		<!-- 定义全局Result映射 -->
+		<global-results>
+			<!-- 定义login逻辑视图对应的视图资源 -->
+			<result name="login">/WEB-INF/content/login.jsp</result>
+			<result name="appuser">/WEB-INF/content/appuser.jsp</result>
+			<result name="dht11">/WEB-INF/content/main/dht11.jsp</result>
+		</global-results>
+		
+		<!-- 定义处理登录系统的的Action -->
+		<action name="processLogin" class="loginAction">
+			<result name="input">/WEB-INF/content/login.jsp</result>
+			<result name="user">/WEB-INF/content/main/main.jsp</result>
+			<result name="error">/WEB-INF/content/error.jsp</result>
+			<result>/WEB-INF/content/login.jsp</result>
+		</action>
+		<!-- 定义处理注册账号的Action -->
+		<action name="appUser" class="appAction">
+			<result name="input">/WEB-INF/content/appuser.jsp</result>
+			<result name="success">/WEB-INF/content/welcome.jsp</result>
+			<result name="error">/WEB-INF/content/error.jsp</result>			
+		</action>
+		<!-- 定义处理ajax获取温度值 -->
+		<action name="getdht11" class="dht11Action">
+			<result>/WEB-INF/content/dht11.jsp</result>
+			<result type="stream">  
+                <param name="inputName">inputStream</param>  
+            </result>  
+		</action>
+		<!-- 定义处理获得历史数据 -->	
+		<action name="gethistory" class="historyAction">
+			<result name="error">/WEB-INF/content/error.jsp</result>
+			<result name="success">/WEB-INF/content/history.jsp</result>
+		</action>
+	
+		<action name="*">
+			<result>/WEB-INF/content/{1}.jsp</result>
+		</action>
+	</package>
+	<constant name="struts.objectFactory" value="spring" />
+</struts>
